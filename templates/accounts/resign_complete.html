@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block main %}
+<div class="user_resign_complete_wrap">
+  <div class="user_wrap">
+    <div class="user_form">
+      <h1>会員情報を削除しました</h1>
+      <h2>ご利用ありがとうございました。<br>またのご利用お待ちしております。</h2>
+      <a href="{% url 'toppage' %}" class="user_button">トップページへ</a>
+    </div>
+  </div>
+</div>
+{% endblock main %}

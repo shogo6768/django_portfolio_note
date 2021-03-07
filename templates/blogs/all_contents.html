@@ -1,0 +1,190 @@
+    {% extends 'base.html' %}
+    {% load static %}
+
+    {% block customcss %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    {% endblock customcss %}
+
+    {% block main %}
+    <main> 
+        <div class="main-container">
+        <section class="about-contents"> 
+            <div class="headline">
+                <h2 class="h2-headline">コンテンツ一覧</h2>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="office"><i class="fas fa-book-open"></i> Office365関連</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='word' %}">
+                            <div class="content c-all">
+                            <h3>Word</h3>
+                            <img src="{% static 'images/PngItem_2864729.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                 
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='excel' %}">
+                            <div class="content c-all">
+                            <h3>Excel</h3>
+                            <img src="{% static 'images/microsoft-excel-2019--v1.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='ppt' %}">
+                        <div class="content c-all">
+                            <h3>Power Point</h3>
+                            <img src="{% static 'images/Microsoft_PowerPoint-Logo.wine.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="google_app"><i class="fas fa-book-open"></i> Googleアプリ関連</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='gmail' %}">
+                            <div class="content c-all">
+                            <h3>Gmail</h3>
+                            <img src="{% static 'images/unnamed.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='spreadsheet' %}">
+                            <div class="content c-all">
+                            <h3>スプレッドシート</h3>
+                            <img src="{% static 'images/png-clipart-google-docs-online-spreadsheet-google-analytics-google-rectangle-logo-thumbnail.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='drive' %}">
+                            <div class="content c-all">
+                            <h3>ドライブ</h3>
+                            <img src="{% static 'images/hh_drive_96dp.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="web_system"><i class="fas fa-book-open"></i> Web会議システム関連</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='zoom' %}">
+                            <div class="content c-all">
+                            <h3>Zoom</h3>
+                            <img src="{% static 'images/y0vow7ahvvowqitnsx7q.png' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='skype' %}">
+                            <div class="content c-all">
+                            <h3>Skype</h3>
+                            <img src="{% static 'images/Skype-new-logo.jpg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='slack' %}">
+                            <div class="content c-all">
+                            <h3>Slack</h3>
+                            <img src="{% static 'images/slack.jpg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="windows"><i class="fas fa-book-open"></i> Windows関連</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='shortcutkey_windows' %}">
+                            <div class="content c-all">
+                            <h3>便利なショートカットキー</h3>
+                            <img src="{% static 'images/windows.jpg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='recomendedsetup_windows' %}">
+                            <div class="content c-all">
+                            <h3>おすすめ設定</h3>
+                            <img src="{% static 'images/windows.jpg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="mac"><i class="fas fa-book-open"></i> Mac関連</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='shortcutkey_mac' %}">
+                            <div class="content c-all">
+                            <h3>便利なショートカットキー</h3>
+                            <img src="{% static 'images/mac.jpg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='recomendedsetup_mac' %}">
+                            <div class="content c-all">
+                            <h3>おすすめ設定</h3>
+                            <img src="{% static 'images/mac.jpg' %} " >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contents-block">
+                <div class="contents-title">
+                    <h2 id="tool"><i class="fas fa-book-open"></i> その他便利機能</h2>
+                </div>
+                <div class="contents-inner-block">
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='ppt' %}">
+                            <div class="content c-all">
+                            <h3>xxxxxxx</h3>
+                            <img src="{% static 'images/good.jpeg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                    <div class="content-wrapper">
+                        <a href="{%url 'category' slug='ppt' %}">
+                            <div class="content c-all">
+                            <h3>xxxxxxx</h3>
+                            <img src="{% static 'images/good.jpeg' %}" >
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+              
+        </section>   
+    </main>
+    {% endblock main %}
+

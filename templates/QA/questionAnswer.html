@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+{% endblock customcss %}
+
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+        <div class="question-block">
+            <div class="quetion-title-block">
+                <h2 class="entry-title" id="question-list-title">{{question.title}}</h2>
+                <p class="sub-title"><span class="time">{{question.created_at|timesince}}前</span><span>{{question.views}}</span>views</p>
+            </div>
+            <div class="question-detail">
+                {{question.content|safe}}
+                <div class="p-tagstime">
+                    <a href="p-tab-link">
+                        <span class="p-tag-name">{{question.tags}}</span>
+                    </a>
+                </div>
+                <div class="question-bottom">
+                    <div class="question-edit">
+                    {% if user.id == question.created_by.id %}
+                        <a class="btn edit" href="{% url 'question_update' question.pk %}">編集</a>
+                        <a class="btn delete" href="{% url 'question_delete' question.pk %}">削除</a>
+                    {% else %}
+                        <a class="btn edit" href="{% url 'question_request' question.pk %}">編集を依頼する</a>
+                    {% endif %}
+                    </div>
+                    <div class="question-created_by">
+                        質問者：{{question.created_by}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="answer-block">
+            <h3 class="answer-counts">{{counts}} Answers</h3>
+           
+            {% for item in answers %}
+                <div class="update-block">
+                    {{item.answer| safe}}
+
+                    
+                    <div class="answer-bottom">
+                    {% if user.id == item.created_by.id %}
+                        <div class="answer-update">
+                            <a class=" btn edit" href="{% url 'answer_update' question.pk item.pk %}">編集</a>
+                            <a class="btn delete" href="{% url 'answer_delete' question.pk item.pk %}">削除</a>
+                        </div>
+                    {% endif %}
+                        <div class="answer-created_by">
+                            回答者：{{item.created_by}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="new-answer-block">
+                <h3 class="new-answer-headline">回答フォーム</h3>
+                <form method="post">{% csrf_token %}
+                    {{ form.media}}
+                    {{ form.answer }}
+                    <input class="btn qa-mg-top" type="submit" value="回答する">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+

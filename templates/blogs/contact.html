@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock customcss %}
+
+<!-- 12/17追加 -->
+{% block main %}
+<form method="post" class="contact-form container">{% csrf_token %}
+  <div class="Form">
+    <div class="Form-Item">
+      <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>メールアドレス</p>
+      {{form.contact_email}}
+    </div>
+    <div class="Form-Item">
+      <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>件名</p>
+      {{form.contact_subject}}
+    </div>
+    <div class="Form-Item">
+      <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>メッセージ</p>
+      {{form.contact_message}}
+    </div>
+    <input type="submit" class="Form-Btn" value="送信する">
+  </div>
+</form>
+{% endblock%}
+

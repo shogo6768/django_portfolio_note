@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+{% endblock customcss %}
+
+
+{% block main %}
+<div class="mypage_wrap">
+  <h1>{{ user.username }}さんへのオススメ</h1>
+  <div class="horizontal_scroll_wrap">
+    <ul class="scroll_list">
+      {% for post in recommend_posts %}
+      <li class="scroll_item">
+        <a href="{% url 'save_history' post.pk %}" class="scroll_item_inr">
+          <div class="scroll_item_thum">
+            <p>{{ post.title }}</p>
+            <div class="scroll_item_info">
+              {% if post.tags.all %}
+              {% for tag in post.tags.all %}
+              <div class="p-tags">
+                <a href="p-tab-link">
+                  <span class="p-tag-name">{{tag.name}}</span>
+                </a>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="p-tags">
+                <a href="#">
+                  <span class="p-tag-name">-</span>
+                </a>
+              </div>
+              {% endif %}
+            </div>
+            {% if post.eye_catch %}
+            <img src="{{ post.eye_catch.url }}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% else %}
+            <img src="{% static 'images/img_not_set.png' %}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- 閲覧履歴エリア -->
+<div class="mypage_wrap">
+  <h1>{{ user.username }}さんの閲覧履歴</h1>
+  <div class="horizontal_scroll_wrap">
+    <ul class="scroll_list">
+      {% for history_post in history_posts %}
+      <li class="scroll_item">
+        <a href="{% url 'save_history' history_post.post.pk %}" class="scroll_item_inr">
+          <div class="scroll_item_thum">
+            <p>{{ history_post.post.title }}</p>
+            <div class="scroll_item_info">
+              {% if history_post.post.tags.all %}
+              {% for tag in history_post.post.tags.all %}
+              <div class="p-tags">
+                <a href="p-tab-link">
+                  <span class="p-tag-name">{{tag.name}}</span>
+                </a>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="p-tags">
+                <a href="#">
+                  <span class="p-tag-name">-</span>
+                </a>
+              </div>
+              {% endif %}
+            </div>
+            {% if history_post.post.eye_catch %}
+            <img src="{{ history_post.post.eye_catch.url }}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% else %}
+            <img src="{% static '/images/img_not_set.png' %}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- お気に入りエリア -->
+<div class="mypage_wrap">
+  <h1>{{ user.username }}さんのお気に入り記事</h1>
+  <div class="horizontal_scroll_wrap">
+    <ul class="scroll_list">
+      {% for like_post in like_posts %}
+      <li class="scroll_item">
+        <a href="{% url 'save_history' like_post.post.pk %}" class="scroll_item_inr">
+          <div class="scroll_item_thum">
+            <p>{{ like_post.post.title }}</p>
+            <div class="scroll_item_info">
+              {% if like_post.post.tags.all %}
+              {% for tag in like_post.post.tags.all %}
+              <div class="p-tags">
+                <a href="p-tab-link">
+                  <span class="p-tag-name">{{tag.name}}</span>
+                </a>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="p-tags">
+                <a href="#">
+                  <span class="p-tag-name">-</span>
+                </a>
+              </div>
+              {% endif %}
+            </div>
+            {% if like_post.post.eye_catch %}
+            <img src="{{ like_post.post.eye_catch.url }}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% else %}
+            <img src="{% static '/images/img_not_set.png' %}" alt="" width="250" height="158" class="alignnone size-medium wp-image-986" />
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<!-- 1/14　髙木更新　退会ページ遷移ボタン -->
+<div class="resign_button">
+  <a href="{% url 'resign' %}" class="user_button">ユーザー退会画面へ</a>
+</div>
+{% endblock main %}

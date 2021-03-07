@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+{% endblock customcss %}
+
+{% block main %}
+<div class="user_resign_wrap">
+  <div class="user_wrap">
+    <div class="user_form">
+      <h1>本当に退会しますか？</h1>
+      <h2>退会すると以下のユーザー情報がすべて抹消されます</br>※退会した後、抹消されたユーザー情報は二度と復元できません</h2>
+      <ul>
+        <li>■抹消される情報</li>
+        <li>アカウント・アイコン・プロフィール</li>
+        <li>閲覧履歴</li>
+        <li>お気に入り履歴</li>
+        <li>リコメンド情報</li>
+      </ul>
+      <a href="{% url 'resign_conduct' user.pk %}" class="user_button">本当に退会する</a>
+    </div>
+  </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+{% endblock customcss %}
+
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+        <div class="question-block">
+            <div class="quetion-title-block">
+                <h2 class="entry-title" id="question-list-title">{{question.title}}</h2>
+                <p class="sub-title"><span>{{question.created_at|timesince}}前</span><span>{{question.views}}</span>views</p>
+            </div>
+            <div class="question-detail">
+                {{question.content|safe}}
+                <div class="p-tags">
+                    <a href="p-tab-link">
+                        <span class="p-tag-name">{{question.tags}}</span>
+                    </a>
+                </div>
+                <div class="question-bottom">
+                    <div>
+                        質問者：{{question.created_by}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="answer-block">
+            <div class="new-answer-block">
+                <h3 class="new-answer-headline">編集依頼</h3>
+                <form method="post" class="question container">{% csrf_token %}
+                    <div class="Form-Item">
+                        <div class="Form-Item-Label" for="subeject">
+                            <h3 class="item-headline">件名</h3>
+                            <p>編集依頼したい内容を簡潔に入力してください。</p>
+                        </div>
+                        {{form.subject}}
+                    </div>
+                    <div class="Form-Item">
+                        <div class="Form-Item-Label" for="message">
+                            <h3 class="item-headline">メール本文</h3>
+                            <p>必要な情報等の詳細を入力してください。</p>
+                        </div>
+                        {{form.message}}
+                    </div>
+                    <input type="submit" class="btn" value="質問者に依頼する">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

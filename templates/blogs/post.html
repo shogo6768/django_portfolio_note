@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+{% endblock customcss %}
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+    <div class="p-date-box">
+        <p class="p-date">投稿日：{{object.published_at}}</p>
+    </div>
+    <h1 class="p-entry-title">{{object.title}}</h1>
+　　
+    {% for tag in object.tags.all %}
+    <div class="p-tags">
+        <a href="p-tab-link">
+            <span class="p-tag-name">{{tag.name}}</span>
+        </a>
+    </div>
+    {% endfor %}
+
+    <div class="p-content">
+        {{object.content |safe}}
+    </div>
+    <div class="container">
+        <!-- 12/19 斉藤コメント　エラー修正のためpk→object.pkに変更しました。 -->
+        <!-- 12/30　髙木更新　お気に入りの状態に応じて表示を変更 -->
+        {% if user.id %}
+            <form action="{% url 'like' object.pk %}" method="get">
+            <button type="submit" name="button">
+                {% if like %}
+                    お気に入り解除
+                {% else %}
+                    お気に入り追加
+                {% endif %}
+            </button>
+            {% csrf_token %}
+            </form>
+        {% endif %}
+    </div>
+    <div class="related-page-block">
+        <h3 class="related-page-headline">関連記事</h3>
+        {% for item in related_posts%}
+        <div class="list-item">
+            <div class="link-box">
+                <a href="{% url 'save_history'  item.pk %}" class="link-item">
+                    <div class="item-category">
+                        カテゴリー：{{item.category}}
+                    </div>
+                    <h3 class="item-title"><span class="ranking-headline">{{item.title}}</span></h3>
+                </a>
+            </div>
+            <div class="description">
+                {{item.description}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+
+    <div class="list-aside-container">
+        <h2 class="entry-title">{{object.category.slug}}関連ランキング</h2>
+        {% for item in category_ranking %}
+        <div class="list-item">
+            <div class="link-box">
+                {% if user.id %}
+                <a href="{% url 'save_history'  item.pk %}" class="link-item">
+                {% else %}
+                <a href="{% url 'post_detail'  item.pk %}" class="link-item">
+                {% endif%}
+                    <h3 class="item-title"><span class="ranking-order"></span><span class="ranking-headline">{{item.title}}</span></h3>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}
+

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+{% endblock customcss %}
+
+
+{% block main %}
+<div class="user_resign_wrap">
+  <div class="user_wrap">
+    <form class="user_form"method="post">{% csrf_token %}
+        <h1>本当に削除しますか?</h1>
+        <input class="btn qa-mg-top" type="submit" value="削除する">
+    </form>
+  </div>
+</div>
+{% endblock main %}

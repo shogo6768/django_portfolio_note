@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+{% endblock customcss %}
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+    <h2 class="entry-title" >質問投稿フォーム</h2>
+    <form method="post" class="question container">{% csrf_token %}
+        <div class="Form-Item">
+            <div class="Form-Item-Label" for="title">
+                <h3 class="item-headline">タイトル</h3>
+                <p>解決したいこと入力してください。</p>
+            </div>
+            {{form.title}}
+        </div>
+        <div class="Form-Item">
+            <div class="Form-Item-Label" for="category">
+                <h3 class="item-headline">カテゴリー</h3>
+                <p>カテゴリーを選択してください。</p>
+            </div>
+            {{form.category}}
+        </div>
+        <div class="Form-Item">
+            <div class="Form-Item-Label" for="category">
+                <h3 class="item-headline">タグ</h3>
+                <p>タグを入力してください</p>
+            </div>
+            {{form.tags}}
+        </div>
+        <div class="Form-Item">
+            <div class="Form-Item-Label" for="content">
+                <h3 class="item-headline">本文</h3>
+                <p>解決したいこと、ほしい結果、トライしたこと等詳細情報を入力してください。</p>
+            </div>
+            {{form.media}}
+            {{form.content}}
+        </div>
+        <input type="submit" class="btn" value="投稿する">
+    </form>
+    </div>
+</div>
+{% endblock%}
+

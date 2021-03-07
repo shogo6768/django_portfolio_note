@@ -1,0 +1,200 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Plus IT</title>
+    {% block customcss %}
+    {% endblock customcss %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_package_v0.16/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_package_v0.16/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_package_v0.16/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_package_v0.16/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'favicon_package_v0.16/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+  </head>
+  <body>
+  <div id="global-container">
+    <div id="container">
+        <header>
+            <ul class="h-left">
+                {% if user.id %}
+                <li><a href="{% url 'mypage' user.id %}"><i class="fas fa-laptop">マイページ</i></a></li>
+                {% else %}
+                <li><a href="{% url 'toppage' %}"><i class="fas fa-laptop">トップページ</i></a></li>
+                {% endif %}
+                <li><a href="{%url 'all_contents'%}">コンテンツ一覧</a></li>
+                <li><a href="{%url 'ranking'%}">よく読まれている記事</a></li>
+                <li class="ctg-lists"><a href="#">カテゴリー一覧</a></li>
+                <li><a href="{%url 'question_list' pk=1 %}">質問する</a></li>
+            </ul>
+
+            <ul class="h-right">
+                <li>
+                    <form class="search-box" action="{% url 'search' %}" method="GET">
+                            <input type="search" class="input-search" style="font-size: 13px; width: 180px;" placeholder="キーワードで検索" name="key_search" value="{{ request.GET.key_search }}" >
+                            <i class="search-icon fas fa-search"></i>
+                    </form>
+                </li>
+                {% if user.id %}
+                <li><a href="{% url 'mypage' user.id %}">{{ user.username }}</a>さん</li>
+                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">ログイン</a></li>
+                <li><a class="btn" href="{% url 'create' %}">無料会員登録</a></li>
+                {% endif %}
+            </ul>
+            <div class="header-icon-block">
+                <button class="mobile-menu__btn menu-icon-bar">
+                    <i class="fas fa-bars fa-2x"></i>
+                </button>
+    
+                {% if not user.id %}
+                <button class="mobile-menu__btn menu-icon-sign-in">
+                    <div class="tooltip-login">
+                        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+                        <span class="tooltiptext-login">ログイン</span>
+                    </div>
+                    <div class="tooltip-create">
+                        <a href="{% url 'create' %}"><i class="fas fa-user-plus fa-2x"></i></a>
+                        <span class="tooltiptext-create">無料会員登録</span>
+                    </div>
+                </button>
+                {% endif %}
+            </div>
+        </header>
+
+       
+
+
+        {% if messages %}
+        <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+
+
+
+        {% block main %}
+        {% endblock main%}
+
+        <div id="react-contact-button">
+        <a href="{% url 'contact'%}">
+            <div class="c-btn c-btn--feedback" id="contact-button">
+            <span class="far fa-envelope u-mr5"></span>ご意見箱
+            </div>
+        </a>
+        </div>
+        <footer>
+            Copyright 2020 xxxxxxxxx. All Rights Reserved.
+        </footer>
+    </div>
+    <nav class="category-menu">
+        <i class="fas fa-times fa-lg"></i>
+        <ul class="category-menu__main">
+            {% for category in allcats %}
+            <li class="category-menu__item">
+                <span class="category__title">{{category}}</span>
+            <ul class="sub-category-menu__main">
+                <li class="sub-category-menu__item">
+                    {% for subcategory in category.children.all %}
+                    <a class="category-menu__link" href="{% url 'category' subcategory.slug %}">
+                        {{subcategory}}
+                    </a>
+                    {% endfor %}
+                </li>
+            </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <nav class="mobile-menu">
+        <i class="fas fa-times fa-lg"></i>
+        <ul class="mobile-menu__main">
+            {% if user.id %}
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{% url 'mypage' user.id %}">
+                    <span class="mobile-main__title">マイページ</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="mobile-menu__item">
+                    <a class="mobile-menu__link" href="{%url 'toppage'%}">
+                        <span class="mobile-main__title">トップページ</span>
+                    </a>
+            </li>
+            {% endif %}
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{%url 'all_contents'%}">
+                    <span class="mobile-main__title">コンテンツ一覧</span>
+                </a>
+            </li>
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{%url 'ranking'%}">
+                    <span class="mobile-main__title">よく読まれている記事</span>
+                </a>
+            </li>
+
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="#">
+                    <span class="mobile-main__title">カテゴリー一覧</span>
+                </a>
+                <ul class="category-menu__main">
+                    {% for category in allcats %}
+                    <li class="category-menu__item">
+                        <span class="category__title">{{category}}</span>
+                    <ul class="sub-category-menu__main">
+                        <li class="sub-category-menu__item">
+                            {% for subcategory in category.children.all %}
+                            <a class="category-menu__link" href="{% url 'category' subcategory.slug %}">
+                                {{subcategory}}
+                            </a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="#">
+                    <span class="mobile-main__title">検索</span>
+                </a>
+                <div class="mobile-search">
+                    <form class="search-box" action="{% url 'search' %}" method="GET">
+                        <input type="search" class="input-search" style="font-size: 13px; width: 100%;" placeholder="キーワードで検索" name="key_search" id="q_in_topbar" value="" >
+                        <i class="search-icon fas fa-search"></i>
+                    </form>
+                </div>
+            </li>
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{% url 'question_list' pk=1　%} ">
+                    <span class="mobile-main__title">質問する</span>
+                </a>
+            </li>
+            {% if user.id %}
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{% url 'logout' %} ">
+                    <span class="mobile-main__title">ログアウト</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="'{% url 'login' %} ">
+                    <span class="mobile-main__title">ログイン</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+  </div>
+  <script src="{% static 'js/main.js' %}"></script>
+ </body>
+</html>

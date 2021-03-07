@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+{% endblock customcss %}
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+        {% if qs %}
+            <h2 class="entry-title">検索結果</h2>
+            {% for item in qs %}
+            <div class="list-item">
+                <div class="link-box">
+                <a href="{% url 'save_history'  item.pk %}" class="link-item">
+        
+                        <div class="item-category">
+                            カテゴリー：{{item.category}}
+                        </div>
+                        <h3 class="item-title"><span class="ranking-headline">{{item.title}}</span></h3>
+                    </a>
+                
+                </div>
+                <div class="description">
+                    {{item.description}}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <h2 class="entry-title">検索結果はありません</h2>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock main %}
+

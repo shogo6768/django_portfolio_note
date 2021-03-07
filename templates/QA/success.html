@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+    <header>
+        <ul class="h-left">
+            {% if user.id %}
+            <li><a href="/mypage/{{ user.id }}"><i class="fas fa-laptop">マイページ</i></a></li>
+            {% else %}
+            <li><a href="{% url 'toppage' %}"><i class="fas fa-laptop">トップページ</i></a></li>
+            {% endif %}
+            <li><a href="{%url 'all_contents'%}">コンテンツ一覧</a></li>
+            <li><a href="{%url 'ranking'%}">よく読まれている記事</a></li>
+            <li class="ctg-lists"><a href="#">カテゴリー一覧</a></li>
+        </ul>
+
+        <ul class="h-right">
+            <li>
+                <form action="{% url 'search' %}" method="GET">
+                    <input type="search" style="font-size: 13px; width: 180px;" placeholder="キーワードで検索" name="key_search" id="q_in_topbar" value="" autocomplete="off">
+                    <button type="submit" ><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+            {% if user.id %}
+            <li>{{ user.username }}さん</li>
+            <li><a href="{% url 'logout' %}">ログアウト</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">ログイン</a></li>
+            <li><a class="btn" href="{% url 'create' %}">無料会員登録</a></li>
+            {% endif %}
+        </ul> 
+        <button class="mobile-menu__btn menu-icon-bar">
+            <i class="fas fa-bars fa-2x"></i>
+        </button>
+
+        {% if not user.id %}
+        <button class="mobile-menu__btn menu-icon-sign-in">
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+            <a href="{% url 'create' %}"><i class="fas fa-user-plus fa-2x"></i></a>
+        </button>          
+        {% endif %}                          
+    </header>
+{% endblock header %}
+
+{% block main %}
+<h2>貴重なご意見ありがとうございました！！</h2>
+{% endblock main %}

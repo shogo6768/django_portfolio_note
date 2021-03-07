@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+{% endblock customcss %}
+
+{% block main %}
+<div id="list-global-container">
+    <div class="list-main-container">
+        <div class="question-box">
+            <h2 class="entry-title" id="question-list-title">質問内容一覧</h2>
+            <a class="btn" href="{% url 'question_create' %}">質問する</a>
+        </div>
+      
+        <div class="qa-ctg-container">
+            <ul class="qa-ctg-box">
+                <li class="qa-ctg-item"><a class="qa-ctg-link" href='{% url 'question_list' pk=1%}'>新着</a></li>
+                <li class="qa-ctg-item"><a class="qa-ctg-link" href='{% url 'question_list' pk=2%}'>未回答</a></li>
+                <li class="qa-ctg-item"><a class="qa-ctg-link" href='{% url 'question_list' pk=3%}'>回答済み</a></li>
+            </ul>
+        </div>
+        {% for item in questions %}
+            {% if pk == 1 %}
+            <div class="question-list">
+                <div class="counts-block">
+                        <div class="answer-counts-block">
+                            <div class="answer-number"><span>{{item.answers.count}}</span></div>
+                            <div>answers</div>
+                        </div>
+                        <div class="view-counts-block">
+                            <div class="view-number"><span>{{item.views}}</span></div>
+                            <div>views</div>
+                        </div>
+                </div>
+                <div class="list-item">
+                    <div class="link-box">
+                        <a href="{% url 'question_answer' item.pk %}" class="link-item">
+                            <div class="item-category">
+                                カテゴリー：{{item.category}}
+                            </div>
+                            <h3 class="item-title"><span class="ranking-headline">{{item.title}}</span></h3>
+                        </a>
+                    </div>
+                    <div class="tags-info">
+                        <a href="#">
+                            <div class="tags">
+                                <span class="p-tag-name">{{item.tags}}</span>
+                            </div>
+                        </a>
+                        <div class="user-and-date">
+                            <span class="username">{{item.created_by}}</span>
+                            <span class="post-date">{{item.created_at|timesince}}前</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% elif pk == 2 %}
+                {% if item.answers.count == 0 %}
+                    {{continue}}
+                    <div class="question-list">
+                        <div class="counts-block">
+                                <div class="answer-counts-block">
+                                    <div class="answer-number"><span>{{item.answers.count}}</span></div>
+                                    <div>answers</div>
+                                </div>
+                                <div class="view-counts-block">
+                                    <div class="view-number"><span>{{item.views}}</span></div>
+                                    <div>views</div>
+                                </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="link-box">
+                                <a href="{% url 'question_answer' item.pk %}" class="link-item">
+                                    <div class="item-category">
+                                        カテゴリー：{{item.category}}
+                                    </div>
+                                    <h3 class="item-title"><span class="ranking-headline">{{item.title}}</span></h3>
+                                </a>
+                            </div>
+                            <div class="tags-info">
+                                <a href="#">
+                                    <div class="tags">
+                                        <span class="p-tag-name">{{item.tags}}</span>
+                                    </div>
+                                </a>
+                                <div class="user-and-date">
+                                    <span class="username">{{item.created_by}}</span>
+                                    <span class="post-date">{{item.created_at|timesince}}前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if item.answers.count  >= 1 %}
+                    {{continue}} 
+                    <div class="question-list">
+                    <div class="counts-block">
+                            <div class="answer-counts-block">
+                                <div class="answer-number"><span>{{item.answers.count}}</span></div>
+                                <div>answers</div>
+                            </div>
+                            <div class="view-counts-block">
+                                <div class="view-number"><span>{{item.views}}</span></div>
+                                <div>views</div>
+                            </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="link-box">
+                            <a href="{% url 'question_answer' item.pk %}" class="link-item">
+                                <div class="item-category">
+                                    カテゴリー：{{item.category}}
+                                </div>
+                                <h3 class="item-title"><span class="ranking-headline">{{item.title}}</span></h3>
+                            </a>
+                        </div>
+                        <div class="tags-info">
+                            <a href="#">
+                                <div class="tags">
+                                    <span class="p-tag-name">{{item.tags}}</span>
+                                </div>
+                            </a>
+                            <div class="user-and-date">
+                                <span class="username">{{item.created_by}}</span>
+                                <span class="post-date">{{item.created_at|timesince}}前</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock main%}
+
+
+  
+       
